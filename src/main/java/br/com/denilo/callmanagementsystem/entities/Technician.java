@@ -1,9 +1,7 @@
 package br.com.denilo.callmanagementsystem.entities;
 
 import br.com.denilo.callmanagementsystem.entities.enums.Profile;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 import java.io.Serial;
@@ -17,7 +15,7 @@ public class Technician extends User {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "technician")
-    private List<Called> calleds = new ArrayList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Technician() {
         super();
@@ -29,11 +27,11 @@ public class Technician extends User {
         super.addProfile(Profile.TECHNICIAN);
     }
 
-    public List<Called> getCalleds() {
-        return calleds;
+    public List<Ticket> getCalleds() {
+        return tickets;
     }
 
-    public void addCalled(Called called) {
-        this.calleds.add(called);
+    public void addCalled(Ticket ticket) {
+        this.tickets.add(ticket);
     }
 }

@@ -11,8 +11,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "calleds")
-public class Called implements Serializable {
+@Table(name = "tickets")
+public class Ticket implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -33,18 +33,16 @@ public class Called implements Serializable {
 
 
     @ManyToOne
-    //@JoinColumn(name = "id_client")
     private Client client;
 
     @ManyToOne
-    //@JoinColumn(name = "id_technician")
     private Technician technician;
 
-    public Called() {
+    public Ticket() {
         this.status = Status.OPEN;
     }
 
-    public Called(String title, String observations, Priority priority, Client client, Technician technician) {
+    public Ticket(String title, String observations, Priority priority, Client client, Technician technician) {
         this.title = title;
         this.observations = observations;
         this.priority = priority;
@@ -121,8 +119,8 @@ public class Called implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Called called = (Called) o;
-        return id == called.id;
+        Ticket ticket = (Ticket) o;
+        return id == ticket.id;
     }
 
     @Override

@@ -1,16 +1,18 @@
 package br.com.denilo.callmanagementsystem.services;
 
-import br.com.denilo.callmanagementsystem.entities.Called;
+import br.com.denilo.callmanagementsystem.entities.Ticket;
 import br.com.denilo.callmanagementsystem.entities.Client;
 import br.com.denilo.callmanagementsystem.entities.Technician;
 import br.com.denilo.callmanagementsystem.entities.enums.Priority;
 import br.com.denilo.callmanagementsystem.entities.enums.Profile;
-import br.com.denilo.callmanagementsystem.repositories.CalledRepository;
+import br.com.denilo.callmanagementsystem.repositories.TicketRepository;
 import br.com.denilo.callmanagementsystem.repositories.ClientRepository;
 import br.com.denilo.callmanagementsystem.repositories.TechnicianRepository;
 import br.com.denilo.callmanagementsystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
 
 @Service
 public class DBService {
@@ -25,7 +27,7 @@ public class DBService {
     private UserRepository userRepository;
 
     @Autowired
-    private CalledRepository calledRepository;
+    private TicketRepository ticketRepository;
 
     public void initializeDB() {
         Client client = new Client(
@@ -37,13 +39,27 @@ public class DBService {
         );
         technician.addProfile(Profile.ADMIN);
 
-        Called called = new Called(
+        Ticket ticket1 = new Ticket(
                 "Chamado 01", "Primeiro chamado.", Priority.MEDIUM, client, technician
         );
+        /*Ticket ticket2 = new Ticket(
+                "Chamado 02", "Segundo chamado.", Priority.MEDIUM, clientRepository.findById(1L).get(), technicianRepository.findById(2L).get()
+        );
+        Ticket ticket3 = new Ticket(
+                "Chamado 03", "Terceiro chamado.", Priority.LOW, clientRepository.findById(1L).get(), technicianRepository.findById(2L).get()
+        );
+        Ticket ticket4 = new Ticket(
+                "Chamado 04", "Quarto chamado.", Priority.HIGH, clientRepository.findById(1L).get(), technicianRepository.findById(2L).get()
+        );*/
 
         clientRepository.save(client);
         technicianRepository.save(technician);
-        calledRepository.save(called);
+        ticketRepository.save(ticket1);
+
+
+        /*ticketRepository.saveAll(Arrays.asList(
+                ticket2, ticket3, ticket4
+        ));*/
     }
 
 }
