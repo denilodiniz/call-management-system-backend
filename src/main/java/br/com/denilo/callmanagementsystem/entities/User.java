@@ -10,7 +10,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
 
     @Serial
@@ -27,7 +28,8 @@ public class User implements Serializable {
     protected String email;
 
     protected String password;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+
+    //@JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate creationDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -39,8 +41,7 @@ public class User implements Serializable {
         this.profiles.add(Profile.CLIENT);
     }
 
-    public User(Long id, String name, String cpf, String email, String password) {
-        this.id = id;
+    public User(String name, String cpf, String email, String password) {
         this.name = name;
         this.cpf = cpf;
         this.email = email;

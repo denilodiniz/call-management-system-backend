@@ -1,6 +1,7 @@
 package br.com.denilo.callmanagementsystem.entities;
 
 import br.com.denilo.callmanagementsystem.entities.enums.Profile;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -9,7 +10,7 @@ import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "technicians")
+@Entity
 public class Technician extends User {
 
     @Serial
@@ -23,8 +24,8 @@ public class Technician extends User {
         super.addProfile(Profile.TECHNICIAN);
     }
 
-    public Technician(Long id, String name, String cpf, String email, String password) {
-        super(id, name, cpf, email, password);
+    public Technician(String name, String cpf, String email, String password) {
+        super(name, cpf, email, password);
         super.addProfile(Profile.TECHNICIAN);
     }
 

@@ -1,5 +1,6 @@
 package br.com.denilo.callmanagementsystem.entities;
 
+import br.com.denilo.callmanagementsystem.entities.enums.Priority;
 import br.com.denilo.callmanagementsystem.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@Table(name = "calleds")
 public class Called implements Serializable {
 
     @Serial
@@ -20,21 +22,34 @@ public class Called implements Serializable {
     private long id;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate creationDate;
+    private final LocalDate creationDate = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate closedDate;
 
     private String title;
     private String observations;
     private Status status;
+    private Priority priority;
+
 
     @ManyToOne
+    //@JoinColumn(name = "id_client")
     private Client client;
+
     @ManyToOne
+    //@JoinColumn(name = "id_technician")
     private Technician technician;
 
     public Called() {
-        this.creationDate = LocalDate.now();
+        this.status = Status.OPEN;
+    }
+
+    public Called(String title, String observations, Priority priority, Client client, Technician technician) {
+        this.title = title;
+        this.observations = observations;
+        this.priority = priority;
+        this.client = client;
+        this.technician = technician;
         this.status = Status.OPEN;
     }
 
@@ -52,6 +67,10 @@ public class Called implements Serializable {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public void setClient(Client client) {
@@ -84,6 +103,10 @@ public class Called implements Serializable {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     public Client getClient() {
