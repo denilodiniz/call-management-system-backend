@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Bean;
 @org.springframework.context.annotation.Profile("dev")
 public class DevConfiguration  {
 
-    @Autowired
-    private DBService dbService;
-
-    @Bean
-    public void initializeDB() {
-        this.dbService.initializeDB();
-    }
+//    @Autowired
+//    private DBService dbService;
+//
+//    @Bean
+//    public void initializeDB() {
+//        this.dbService.initializeDB();
+//    }
 }

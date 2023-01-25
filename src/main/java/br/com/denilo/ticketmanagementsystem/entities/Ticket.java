@@ -2,6 +2,7 @@ package br.com.denilo.ticketmanagementsystem.entities;
 
 import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
 import br.com.denilo.ticketmanagementsystem.entities.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -46,10 +47,12 @@ public class Ticket implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_client", nullable = false)
+    @JsonIgnore
     private Client client;
 
     @ManyToOne
     @JoinColumn(name = "id_technician", nullable = false)
+    @JsonIgnore
     private Technician technician;
 
     public Ticket() {

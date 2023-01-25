@@ -17,7 +17,7 @@ public class Technician extends User {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "technician", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<Ticket> ticketList = new ArrayList<>();
 
     public Technician() {
         super();
@@ -30,10 +30,10 @@ public class Technician extends User {
     }
 
     public List<Ticket> getTickets() {
-        return tickets;
+        return ticketList;
     }
 
     public void addTicket(Ticket ticket) {
-        this.tickets.add(ticket);
+        this.ticketList.add(ticket);
     }
 }

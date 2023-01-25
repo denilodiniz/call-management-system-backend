@@ -13,7 +13,7 @@ public class Client extends User {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Ticket> tickets = new ArrayList<>();
+    private List<Ticket> ticketList = new ArrayList<>();
 
     public Client() {
         super();
@@ -23,11 +23,11 @@ public class Client extends User {
         super(name, cpf, email, password);
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
+    public List<Ticket> getTicketList() {
+        return ticketList;
     }
 
     public void addTicket(Ticket ticket) {
-        this.tickets.add(ticket);
+        this.ticketList.add(ticket);
     }
 }
