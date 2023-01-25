@@ -1,13 +1,13 @@
-package br.com.denilo.callmanagementsystem;
+package br.com.denilo.ticketmanagementsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CallManagementSystemApplication {
+public class TicketManagementSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CallManagementSystemApplication.class, args);
+		SpringApplication.run(TicketManagementSystemApplication.class, args);
 	}
 
 }

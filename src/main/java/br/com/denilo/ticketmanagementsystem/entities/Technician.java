@@ -1,20 +1,22 @@
-package br.com.denilo.callmanagementsystem.entities;
+package br.com.denilo.ticketmanagementsystem.entities;
 
-import br.com.denilo.callmanagementsystem.entities.enums.Profile;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
 import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "technician")
 public class Technician extends User {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "technician")
+    @OneToMany(mappedBy = "technician", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
     public Technician() {
@@ -27,11 +29,11 @@ public class Technician extends User {
         super.addProfile(Profile.TECHNICIAN);
     }
 
-    public List<Ticket> getCalleds() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public void addCalled(Ticket ticket) {
+    public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
     }
 }

@@ -1,16 +1,16 @@
-package br.com.denilo.callmanagementsystem.entities;
+package br.com.denilo.ticketmanagementsystem.entities;
 
-import br.com.denilo.callmanagementsystem.entities.enums.Priority;
-import br.com.denilo.callmanagementsystem.entities.enums.Status;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Status;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "tickets")
 @Table(name = "tickets")
 public class Ticket implements Serializable {
 
@@ -19,23 +19,37 @@ public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ticket")
     private long id;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private final LocalDate creationDate = LocalDate.now();
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate closedDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "closed_date", nullable = true)
+    private LocalDateTime closedDate;
+
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "observations", nullable = false)
     private String observations;
+
+    @Column(name = "status", nullable = false)
     private Status status;
+
+    @Column(name = "priority", nullable = false)
     private Priority priority;
 
 
     @ManyToOne
+    @JoinColumn(name = "id_client", nullable = false)
     private Client client;
 
     @ManyToOne
+    @JoinColumn(name = "id_technician", nullable = false)
     private Technician technician;
 
     public Ticket() {
@@ -51,7 +65,7 @@ public class Ticket implements Serializable {
         this.status = Status.OPEN;
     }
 
-    public void setClosedDate(LocalDate closedDate) {
+    public void setClosedDate(LocalDateTime closedDate) {
         this.closedDate = closedDate;
     }
 
@@ -83,11 +97,11 @@ public class Ticket implements Serializable {
         return id;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public LocalDate getClosedDate() {
+    public LocalDateTime getClosedDate() {
         return closedDate;
     }
 

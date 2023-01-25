@@ -1,6 +1,6 @@
-package br.com.denilo.callmanagementsystem.repositories;
+package br.com.denilo.ticketmanagementsystem.repositories;
 
-import br.com.denilo.callmanagementsystem.entities.User;
+import br.com.denilo.ticketmanagementsystem.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

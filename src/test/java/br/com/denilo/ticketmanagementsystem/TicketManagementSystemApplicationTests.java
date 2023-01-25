@@ -1,10 +1,10 @@
-package br.com.denilo.callmanagementsystem;
+package br.com.denilo.ticketmanagementsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CallManagementSystemApplicationTests {
+class TicketManagementSystemApplicationTests {
 
 	@Test
 	void contextLoads() {

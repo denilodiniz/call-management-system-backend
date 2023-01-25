@@ -1,4 +1,4 @@
-package br.com.denilo.callmanagementsystem.entities.enums;
+package br.com.denilo.ticketmanagementsystem.entities.enums;
 
 public enum Profile {
 

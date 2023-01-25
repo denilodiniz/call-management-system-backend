@@ -1,18 +1,16 @@
-package br.com.denilo.callmanagementsystem.services;
+package br.com.denilo.ticketmanagementsystem.services;
 
-import br.com.denilo.callmanagementsystem.entities.Ticket;
-import br.com.denilo.callmanagementsystem.entities.Client;
-import br.com.denilo.callmanagementsystem.entities.Technician;
-import br.com.denilo.callmanagementsystem.entities.enums.Priority;
-import br.com.denilo.callmanagementsystem.entities.enums.Profile;
-import br.com.denilo.callmanagementsystem.repositories.TicketRepository;
-import br.com.denilo.callmanagementsystem.repositories.ClientRepository;
-import br.com.denilo.callmanagementsystem.repositories.TechnicianRepository;
-import br.com.denilo.callmanagementsystem.repositories.UserRepository;
+import br.com.denilo.ticketmanagementsystem.entities.Ticket;
+import br.com.denilo.ticketmanagementsystem.entities.Client;
+import br.com.denilo.ticketmanagementsystem.entities.Technician;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
+import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
+import br.com.denilo.ticketmanagementsystem.repositories.ClientRepository;
+import br.com.denilo.ticketmanagementsystem.repositories.TechnicianRepository;
+import br.com.denilo.ticketmanagementsystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 public class DBService {

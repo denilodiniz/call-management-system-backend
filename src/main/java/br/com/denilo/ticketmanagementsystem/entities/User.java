@@ -1,8 +1,8 @@
-package br.com.denilo.callmanagementsystem.entities;
+package br.com.denilo.ticketmanagementsystem.entities;
 
-import br.com.denilo.callmanagementsystem.entities.enums.Profile;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
+@Entity(name = "users")
 @Table(name = "users")
 public class User implements Serializable {
 
@@ -19,17 +19,24 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_user")
     protected Long id;
+
+    @Column(name = "name", nullable = false)
     protected String name;
 
-    @Column(unique = true)
+    @Column(name = "cpf", unique = true, nullable = false)
     protected String cpf;
-    @Column(unique = true)
+
+    @Column(name = "email", unique = true, nullable = false)
     protected String email;
 
+    @Column(name = "password", nullable = false)
     protected String password;
 
-    //@JsonFormat(pattern = "dd/MM/yyyy")
+    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
+    @Column(name = "creation_date", nullable = false)
     protected LocalDate creationDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -37,7 +44,6 @@ public class User implements Serializable {
     protected Set<Profile> profiles = new java.util.LinkedHashSet<>();
 
     public User() {
-        this.creationDate = LocalDate.now();
         this.profiles.add(Profile.CLIENT);
     }
 
@@ -46,7 +52,6 @@ public class User implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-        this.creationDate = LocalDate.now();
         this.profiles.add(Profile.CLIENT);
     }
 
@@ -67,7 +72,7 @@ public class User implements Serializable {
     }
 
     public void addProfile(Profile profile) {
-        this.profiles.add(Profile.toEnum(profile.getCode()));
+        this.profiles.add(profile);
     }
 
     public Long getId() {

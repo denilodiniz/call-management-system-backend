@@ -1,6 +1,6 @@
-package br.com.denilo.callmanagementsystem.configuration;
+package br.com.denilo.ticketmanagementsystem.configuration;
 
-import br.com.denilo.callmanagementsystem.services.DBService;
+import br.com.denilo.ticketmanagementsystem.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
