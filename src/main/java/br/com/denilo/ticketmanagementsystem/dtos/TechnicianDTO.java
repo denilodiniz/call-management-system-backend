@@ -21,6 +21,7 @@ public class TechnicianDTO implements Serializable {
     private String name;
     private String cpf;
     private String email;
+    private String password;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate creationDate;
     private Set<Profile> profiles;
@@ -43,6 +44,10 @@ public class TechnicianDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setCreationDate(LocalDate creationDate) {
@@ -71,6 +76,10 @@ public class TechnicianDTO implements Serializable {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public LocalDate getCreationDate() {
