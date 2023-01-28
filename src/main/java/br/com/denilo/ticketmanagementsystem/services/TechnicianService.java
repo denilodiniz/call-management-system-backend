@@ -7,10 +7,12 @@ import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.UserRepository;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.UserAlreadyExistsException;
+import br.com.denilo.ticketmanagementsystem.util.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TechnicianService {
@@ -32,15 +34,16 @@ public class TechnicianService {
     }
 
     public Technician create(TechnicianDTO technicianDTO) {
-        if (userRepository.findByCpf(technicianDTO.getCpf()).isPresent()) {
-            throw new UserAlreadyExistsException("User with CPF already registered.");
-        }
-        else if (userRepository.findByEmail(technicianDTO.getEmail()).isPresent()) {
-            throw new UserAlreadyExistsException("User with e-mail already registered.");
-        }
-        else {
-            return technicianRepository.save(convertToUser(technicianDTO));
-        }
+//        UserValidation.requiredField(
+//                technicianDTO.getName(),
+//                technicianDTO.getCpf(),
+//                technicianDTO.getEmail(),
+//                technicianDTO.getPassword()
+//        );
+
+        UserValidation.userValidation(technicianDTO.getCpf(), technicianDTO.getEmail());
+
+        return technicianRepository.save(convertToUser(technicianDTO));
     }
 
     private TechnicianDTO toTechnicianDTO(Technician technician) {

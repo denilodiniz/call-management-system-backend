@@ -2,6 +2,7 @@ package br.com.denilo.ticketmanagementsystem.entities;
 
 import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;

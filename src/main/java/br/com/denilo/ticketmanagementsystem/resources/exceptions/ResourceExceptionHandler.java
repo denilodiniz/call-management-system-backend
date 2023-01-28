@@ -1,5 +1,6 @@
 package br.com.denilo.ticketmanagementsystem.resources.exceptions;
 
+import br.com.denilo.ticketmanagementsystem.services.exceptions.RequiredFieldException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.UserAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,19 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> userAlreadyExistsException(UserAlreadyExistsException e, HttpServletRequest request) {
         String error = "User already exists.";
         HttpStatus status = HttpStatus.CONFLICT;
+        StandardError standardError = new StandardError(
+                status.value(),
+                error,
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(RequiredFieldException.class)
+    public ResponseEntity<StandardError> requiredFieldException(RequiredFieldException e, HttpServletRequest request) {
+        String error = "Required field.";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError standardError = new StandardError(
                 status.value(),
                 error,
