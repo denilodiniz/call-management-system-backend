@@ -2,6 +2,7 @@ package br.com.denilo.ticketmanagementsystem.resources;
 
 import br.com.denilo.ticketmanagementsystem.dtos.TechnicianDTO;
 import br.com.denilo.ticketmanagementsystem.services.TechnicianService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class TechnicianResource {
     }
 
     @PostMapping
-    public ResponseEntity<TechnicianDTO> create(@RequestBody TechnicianDTO technicianDTO) {
+    public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO technicianDTO) {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")

@@ -1,4 +1,4 @@
-package br.com.denilo.ticketmanagementsystem.configuration;
+package br.com.denilo.ticketmanagementsystem.configurations;
 
 import br.com.denilo.ticketmanagementsystem.services.DBService;
 import org.springframework.beans.factory.annotation.Autowired;

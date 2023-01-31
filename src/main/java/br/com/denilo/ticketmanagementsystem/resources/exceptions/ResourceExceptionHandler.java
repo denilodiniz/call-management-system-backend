@@ -1,9 +1,10 @@
 package br.com.denilo.ticketmanagementsystem.resources.exceptions;
 
-import br.com.denilo.ticketmanagementsystem.services.exceptions.RequiredFieldException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.UserAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -38,17 +39,22 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(standardError);
     }
 
-    @ExceptionHandler(RequiredFieldException.class)
-    public ResponseEntity<StandardError> requiredFieldException(RequiredFieldException e, HttpServletRequest request) {
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<StandardError> validationErrors(ConstraintViolationException e, HttpServletRequest request) {
         String error = "Required field.";
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        StandardError standardError = new StandardError(
+        ValidationError validationError = new ValidationError(
                 status.value(),
                 error,
-                e.getMessage(),
+                "Required fields are set to null.",
                 request.getRequestURI()
         );
-        return ResponseEntity.status(status).body(standardError);
+
+        for (ConstraintViolation x : e.getConstraintViolations()) {
+            validationError.addRequiredField(x.getPropertyPath().toString(), x.getMessageTemplate());
+        }
+
+        return ResponseEntity.status(status).body(validationError);
     }
 
 }

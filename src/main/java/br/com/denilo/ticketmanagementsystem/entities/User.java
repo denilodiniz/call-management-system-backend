@@ -2,7 +2,9 @@ package br.com.denilo.ticketmanagementsystem.entities;
 
 import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
@@ -23,15 +25,21 @@ public class User implements Serializable {
     @Column(name = "id_user")
     protected Long id;
 
+    @NotNull(message = "The NAME field is required.")
     @Column(name = "name", nullable = false)
     protected String name;
 
+    @NotNull(message = "The CPF field is required.")
+    @Size(min = 11, max = 11)
     @Column(name = "cpf", unique = true, nullable = false)
     protected String cpf;
 
+    @NotNull(message = "The E-MAIL field is required.")
+    @Email
     @Column(name = "email", unique = true, nullable = false)
     protected String email;
 
+    @NotNull(message = "The PASSWORD field is required.")
     @Column(name = "password", nullable = false)
     protected String password;
 
@@ -41,6 +49,7 @@ public class User implements Serializable {
     protected LocalDate creationDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
     @CollectionTable(name = "profiles")
     protected Set<Profile> profiles = new java.util.LinkedHashSet<>();
 

@@ -4,6 +4,7 @@ import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
 import br.com.denilo.ticketmanagementsystem.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serial;
@@ -32,15 +33,19 @@ public class Ticket implements Serializable {
     @Column(name = "closed_date", nullable = true)
     private LocalDateTime closedDate;
 
+    @NotNull(message = "The TITLE field is required.")
     @Column(name = "title", nullable = false)
     private String title;
 
+    @NotNull(message = "The OBSERVATIONS field is required.")
     @Column(name = "observations", nullable = false)
     private String observations;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "priority", nullable = false)
     private Priority priority;
 
