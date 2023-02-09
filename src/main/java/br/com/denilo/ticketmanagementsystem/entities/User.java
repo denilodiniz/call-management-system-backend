@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,15 +23,16 @@ public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user")
+    @Column(name = "id")
     protected Long id;
 
     @NotNull(message = "The NAME field is required.")
+    @Size(min = 2, max = 100)
     @Column(name = "name", nullable = false)
     protected String name;
 
     @NotNull(message = "The CPF field is required.")
-    @Size(min = 11, max = 11)
+    @CPF(message = "CPF is invalid.")
     @Column(name = "cpf", unique = true, nullable = false)
     protected String cpf;
 
@@ -63,6 +65,14 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.profiles.add(Profile.CLIENT);
+    }
+
+    public User(Long id, String name, String cpf, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
     }
 
     public void setName(String name) {

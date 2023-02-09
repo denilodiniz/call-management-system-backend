@@ -39,4 +39,9 @@ public class TechnicianResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TechnicianDTO> update(@PathVariable Long id, @Valid @RequestBody TechnicianDTO technicianDTO) {
+        return ResponseEntity.ok().body(technicianService.update(id, technicianDTO));
+    }
+
 }
