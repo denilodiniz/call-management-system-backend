@@ -4,6 +4,7 @@ import br.com.denilo.ticketmanagementsystem.dtos.TechnicianDTO;
 import br.com.denilo.ticketmanagementsystem.services.TechnicianService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,5 +44,12 @@ public class TechnicianResource {
     public ResponseEntity<TechnicianDTO> update(@PathVariable Long id, @Valid @RequestBody TechnicianDTO technicianDTO) {
         return ResponseEntity.ok().body(technicianService.update(id, technicianDTO));
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<TechnicianDTO> delete(@PathVariable Long id) {
+        technicianService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

@@ -13,6 +13,8 @@ import br.com.denilo.ticketmanagementsystem.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class DBService {
 
@@ -29,26 +31,26 @@ public class DBService {
     private TicketRepository ticketRepository;
 
     public void initializeDB() {
-//        Client client = new Client(
+
+//        Client client1 = new Client(
 //                "Linus Torvalds", "70511744013", "linus@email.com", "123"
-//        );
-//
-//        Technician technician = new Technician(
-//                "Valdir Cezar", "76045777093", "valdir@email.com", "123"
-//        );
-//        technician.addProfile(Profile.ADMIN);
-//
-//        Ticket ticket1 = new Ticket(
-//                "Chamado 01", "Primeiro chamado.", Priority.MEDIUM, client, technician
 //        );
 //
 //        User client2 = new Client(
 //                "Igor", "67541338052", "igor@email.com", "123"
 //        );
-
-
-//        User technician1 = new Technician(
+//
+//        Technician technician1 = new Technician(
+//                "Valdir Cezar", "76045777093", "valdir@email.com", "123"
+//        );
+//        technician1.addProfile(Profile.ADMIN);
+////
+//        User technician2 = new Technician(
 //                "Priscyla", "23502691088", "priscyla@email.com", "123"
+//        );
+//
+//        Ticket ticket1 = new Ticket(
+//                "Chamado 01", "Primeiro chamado.", Priority.MEDIUM, client1, technician1
 //        );
 
         /*Ticket ticket2 = new Ticket(
@@ -61,17 +63,13 @@ public class DBService {
                 "Chamado 04", "Quarto chamado.", Priority.HIGH, clientRepository.findById(1L).get(), technicianRepository.findById(2L).get()
         );*/
 
-//        userRepository.save(client2);
-//        userRepository.save(technician1);
-//        clientRepository.save(client);
-//        technicianRepository.save(technician);
+//        userRepository.saveAll(Arrays.asList(client1, client2));
+//        userRepository.saveAll(Arrays.asList(technician1, technician2));
 //        ticketRepository.save(ticket1);
 
-
-
-        /*ticketRepository.saveAll(Arrays.asList(
-                ticket2, ticket3, ticket4
-        ));*/
+//        ticketRepository.saveAll(Arrays.asList(
+//                ticket2, ticket3, ticket4
+//        ));
     }
 
 }

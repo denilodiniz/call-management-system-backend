@@ -21,7 +21,7 @@ public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_ticket")
+    @Column(name = "id")
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)

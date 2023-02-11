@@ -1,5 +1,6 @@
 package br.com.denilo.ticketmanagementsystem.resources.exceptions;
 
+import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErrorException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.UserAlreadyExistsException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +30,19 @@ public class ResourceExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<StandardError> userAlreadyExistsException(UserAlreadyExistsException e, HttpServletRequest request) {
         String error = "User already exists.";
+        HttpStatus status = HttpStatus.CONFLICT;
+        StandardError standardError = new StandardError(
+                status.value(),
+                error,
+                e.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(DataIntegrityErrorException.class)
+    public ResponseEntity<StandardError> dataIntegrityError(DataIntegrityErrorException e, HttpServletRequest request) {
+        String error = "Data integrity error.";
         HttpStatus status = HttpStatus.CONFLICT;
         StandardError standardError = new StandardError(
                 status.value(),
