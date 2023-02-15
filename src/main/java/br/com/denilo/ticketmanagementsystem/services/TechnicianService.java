@@ -89,12 +89,12 @@ public class TechnicianService {
         );
     }
 
-    private Technician updateData(Technician technicianData, Technician technicianUdpate) {
-        technicianUdpate.setName(technicianData.getName());
-        technicianUdpate.setCpf(technicianData.getCpf());
-        technicianUdpate.setEmail(technicianData.getEmail());
-        technicianUdpate.setPassword(technicianData.getPassword());
-        return technicianUdpate;
+    private Technician updateData(Technician technicianData, Technician technicianUpdate) {
+        technicianUpdate.setName(technicianData.getName());
+        technicianUpdate.setCpf(technicianData.getCpf());
+        technicianUpdate.setEmail(technicianData.getEmail());
+        technicianUpdate.setPassword(technicianData.getPassword());
+        return technicianUpdate;
     }
 
 }
