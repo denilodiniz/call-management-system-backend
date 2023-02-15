@@ -9,7 +9,6 @@ import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErr
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,7 +55,7 @@ public class TechnicianService {
     public void delete(Long id) {
         this.findById(id);
         Optional<Technician> technician = technicianRepository.findById(id);
-        if (technician.get().getTickets().size() > 0) {
+        if (technician.get().getTicketList().size() > 0) {
             throw new DataIntegrityErrorException("Technician has tickets, it cannot be deleted.");
         }
         technicianRepository.deleteById(id);

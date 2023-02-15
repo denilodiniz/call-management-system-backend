@@ -16,11 +16,14 @@ public class Client extends User {
     private List<Ticket> ticketList = new ArrayList<>();
 
     public Client() {
-        super();
     }
 
     public Client(String name, String cpf, String email, String password) {
         super(name, cpf, email, password);
+    }
+
+    public Client(Long id, String name, String cpf, String email, String password) {
+        super(id, name, cpf, email, password);
     }
 
     public List<Ticket> getTicketList() {

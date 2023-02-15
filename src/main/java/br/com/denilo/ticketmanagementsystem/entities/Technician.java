@@ -33,7 +33,7 @@ public class Technician extends User {
         super(id, name, cpf, email, password);
     }
 
-    public List<Ticket> getTickets() {
+    public List<Ticket> getTicketList() {
         return ticketList;
     }
 
