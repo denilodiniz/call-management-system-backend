@@ -25,7 +25,7 @@ public class ClientService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    public ClientDTO findById(Long id) {
+    public ClientDTO findById(java.lang.Long id) {
         return toClientDTO(clientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Client with ID " + id + " does not exist.")));
     }
@@ -33,7 +33,7 @@ public class ClientService {
     public List<ClientDTO> findAll() {
         return clientRepository.findAll()
                 .stream()
-                .map(x -> toClientDTO(x))
+                .map(this::toClientDTO)
                 .toList();
     }
 
@@ -42,7 +42,7 @@ public class ClientService {
         return toClientDTO(clientRepository.save(convertToClient(clientDTO)));
     }
 
-    public ClientDTO update(Long id, @Valid ClientDTO clientDTO) {
+    public ClientDTO update(java.lang.Long id, @Valid ClientDTO clientDTO) {
         clientDTO.setId(id);
         UserValidation.userValidationForUserUpdate(clientDTO.getId(), clientDTO.getCpf(), clientDTO.getEmail());
         Client clientData = convertToClientWithId(clientDTO);
@@ -52,7 +52,7 @@ public class ClientService {
         return toClientDTO(updatedClient);
     }
 
-    public void delete(Long id) {
+    public void delete(java.lang.Long id) {
         this.findById(id);
         Optional<Client> client = clientRepository.findById(id);
         if (client.get().getTicketList().size() > 0) {
@@ -61,12 +61,12 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
-    private ClientDTO toClientDTO(Client client) {
+    private ClientDTO toClientDTO(Client aClient) {
         ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName(client.getName());
-        clientDTO.setEmail(client.getEmail());
-        clientDTO.setCpf(client.getCpf());
-        clientDTO.setCreationDate(client.getCreationDate());
+        clientDTO.setName(aClient.getName());
+        clientDTO.setEmail(aClient.getEmail());
+        clientDTO.setCpf(aClient.getCpf());
+        clientDTO.setCreationDate(aClient.getCreationDate());
         return clientDTO;
     }
 

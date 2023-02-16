@@ -42,20 +42,24 @@ public class Ticket implements Serializable {
     private String observations;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "The STATUS field is required.")
     @Column(name = "status", nullable = false)
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "The PRIORITY field is required.")
     @Column(name = "priority", nullable = false)
     private Priority priority;
 
 
     @ManyToOne
+    @NotNull(message = "The CLIENT field is required.")
     @JoinColumn(name = "id_client", nullable = false)
     @JsonIgnore
     private Client client;
 
     @ManyToOne
+    @NotNull(message = "The TECHNICIAN field is required.")
     @JoinColumn(name = "id_technician", nullable = false)
     @JsonIgnore
     private Technician technician;
