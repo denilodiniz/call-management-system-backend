@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -41,6 +42,13 @@ public class TicketService {
         return toTicketDTO(ticketRepository.save(convertToTicked(ticketDTO)));
     }
 
+    public TicketDTO update(Long id, TicketDTO ticketDTO) {
+        ticketDTO.setId(id);
+        Ticket ticketUpdate = convertToTicked(findById(id));
+        Ticket ticket = ticketRepository.save(updateData(ticketUpdate, ticketDTO));
+        return toTicketDTO(ticket);
+    }
+
     private Ticket convertToTicked(TicketDTO ticketDTO) {
         return new Ticket(
           ticketDTO.getTitle(),
@@ -65,6 +73,16 @@ public class TicketService {
                 ticket.getClient().getName(),
                 ticket.getTechnician().getName()
         );
+    }
+
+    private Ticket updateData(Ticket ticket, TicketDTO ticketDTO) {
+        ticket.setId(ticketDTO.getId());
+
+        ticket.setTitle(ticketDTO.getTitle());
+        ticket.setObservations(ticketDTO.getObservations());
+        ticket.setPriority(ticketDTO.getPriority());
+        ticket.setClosedDate(ticketDTO.getClosedDate());
+        return ticket;
     }
 
 }

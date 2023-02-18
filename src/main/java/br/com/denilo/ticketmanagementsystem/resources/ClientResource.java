@@ -1,6 +1,7 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
 import br.com.denilo.ticketmanagementsystem.dtos.ClientDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.ClientSummaryDTO;
 import br.com.denilo.ticketmanagementsystem.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ClientResource {
     private ClientService clientService;
 
     @GetMapping
-    public ResponseEntity<List<ClientDTO>> findAll() {
+    public ResponseEntity<List<ClientSummaryDTO>> findAll() {
         return ResponseEntity.ok().body(clientService.findAll());
     }
 

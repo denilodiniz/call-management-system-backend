@@ -38,4 +38,10 @@ public class TicketResource {
         return ResponseEntity.created(uri).build();
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TicketDTO> update(@PathVariable Long id, @Valid @RequestBody TicketDTO ticketDTO) {
+        TicketDTO ticketUpdated = ticketService.update(id, ticketDTO);
+        return ResponseEntity.ok().body(ticketUpdated);
+    }
+
 }

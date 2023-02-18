@@ -1,9 +1,11 @@
 package br.com.denilo.ticketmanagementsystem.services;
 
 import br.com.denilo.ticketmanagementsystem.dtos.ClientDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.ClientSummaryDTO;
 import br.com.denilo.ticketmanagementsystem.entities.Client;
 import br.com.denilo.ticketmanagementsystem.repositories.ClientRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
+import br.com.denilo.ticketmanagementsystem.services.converter.ClientConverterDTO;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErrorException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
@@ -30,10 +32,10 @@ public class ClientService {
                 .orElseThrow(() -> new ResourceNotFoundException("Client with ID " + id + " does not exist.")));
     }
 
-    public List<ClientDTO> findAll() {
+    public List<ClientSummaryDTO> findAll() {
         return clientRepository.findAll()
                 .stream()
-                .map(this::toClientDTO)
+                .map(ClientConverterDTO::clientSummaryDTO)
                 .toList();
     }
 

@@ -77,6 +77,10 @@ public class Ticket implements Serializable {
         this.status = Status.OPEN;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setClosedDate(LocalDateTime closedDate) {
         this.closedDate = closedDate;
     }
