@@ -8,6 +8,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -53,19 +55,37 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(status).body(standardError);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<StandardError> validationErrors(ConstraintViolationException e, HttpServletRequest request) {
-        String error = "Required field.";
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<StandardError> validationErrors(ConstraintViolationException e, HttpServletRequest request) {
+//        String error = "Required field.";
+//        HttpStatus status = HttpStatus.BAD_REQUEST;
+//        ValidationError validationError = new ValidationError(
+//                status.value(),
+//                error,
+//                "Required fields are set to null.",
+//                request.getRequestURI()
+//        );
+//
+//        for (ConstraintViolation x : e.getConstraintViolations()) {
+//            validationError.addRequiredField(x.getPropertyPath().toString(), x.getMessageTemplate());
+//        }
+//
+//        return ResponseEntity.status(status).body(validationError);
+//    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<StandardError> validationErrors(MethodArgumentNotValidException e, HttpServletRequest request) {
+        String error = "Validation error.";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         ValidationError validationError = new ValidationError(
                 status.value(),
                 error,
-                "Required fields are set to null.",
+                "Reported data validation error",
                 request.getRequestURI()
         );
 
-        for (ConstraintViolation x : e.getConstraintViolations()) {
-            validationError.addRequiredField(x.getPropertyPath().toString(), x.getMessageTemplate());
+        for (FieldError x : e.getBindingResult().getFieldErrors()) {
+            validationError.addRequiredField(x.getField().toString(), x.getDefaultMessage());
         }
 
         return ResponseEntity.status(status).body(validationError);

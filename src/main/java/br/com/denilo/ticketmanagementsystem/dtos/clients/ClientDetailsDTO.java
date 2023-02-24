@@ -1,13 +1,16 @@
-package br.com.denilo.ticketmanagementsystem.dtos;
+package br.com.denilo.ticketmanagementsystem.dtos.clients;
 
-import br.com.denilo.ticketmanagementsystem.entities.Client;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketSummaryDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ClientSummaryDTO implements Serializable {
+
+public class ClientDetailsDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -17,6 +20,8 @@ public class ClientSummaryDTO implements Serializable {
     private String email;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate creationDate;
+
+    private List<TicketSummaryDTO> ticketSummaryDTOList = new ArrayList<>();
 
     public void setName(String name) {
         this.name = name;
@@ -34,6 +39,10 @@ public class ClientSummaryDTO implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public void setTicketSummaryDTOList(List<TicketSummaryDTO> ticketSummaryDTOList) {
+        this.ticketSummaryDTOList = ticketSummaryDTOList;
+    }
+
     public String getName() {
         return name;
     }
@@ -48,6 +57,10 @@ public class ClientSummaryDTO implements Serializable {
 
     public LocalDate getCreationDate() {
         return creationDate;
+    }
+
+    public List<TicketSummaryDTO> getTicketSummaryDTOList() {
+        return ticketSummaryDTOList;
     }
 
 }

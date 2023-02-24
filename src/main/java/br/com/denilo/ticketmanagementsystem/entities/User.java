@@ -27,17 +27,17 @@ public class User implements Serializable {
     protected Long id;
 
     @NotNull(message = "The NAME field is required.")
-    @Size(min = 2, max = 100)
+    @Size(min = 2, max = 100, message = "The NAME must be between 2 and 100 characters.")
     @Column(name = "name", nullable = false)
     protected String name;
 
     @NotNull(message = "The CPF field is required.")
-    @CPF(message = "CPF is invalid.")
+    @CPF(message = "Invalid CPF.")
     @Column(name = "cpf", unique = true, nullable = false)
     protected String cpf;
 
     @NotNull(message = "The E-MAIL field is required.")
-    @Email
+    @Email(message = "Invalid e-mail.")
     @Column(name = "email", unique = true, nullable = false)
     protected String email;
 

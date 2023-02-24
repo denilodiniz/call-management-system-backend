@@ -12,7 +12,7 @@ public class Client extends User {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ticket> ticketList = new ArrayList<>();
 
     public Client() {

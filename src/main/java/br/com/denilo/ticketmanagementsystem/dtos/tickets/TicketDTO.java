@@ -1,4 +1,4 @@
-package br.com.denilo.ticketmanagementsystem.dtos;
+package br.com.denilo.ticketmanagementsystem.dtos.tickets;
 
 import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
 import br.com.denilo.ticketmanagementsystem.entities.enums.Status;

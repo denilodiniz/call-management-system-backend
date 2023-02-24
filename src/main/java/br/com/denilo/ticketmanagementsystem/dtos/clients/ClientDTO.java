@@ -1,4 +1,4 @@
-package br.com.denilo.ticketmanagementsystem.dtos;
+package br.com.denilo.ticketmanagementsystem.dtos.clients;
 
 import br.com.denilo.ticketmanagementsystem.entities.Ticket;
 import br.com.denilo.ticketmanagementsystem.entities.enums.Profile;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TechnicianDTO implements Serializable {
+public class ClientDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class TechnicianDTO implements Serializable {
     private Set<Profile> profiles;
     private List<Ticket> ticketList;
 
-    public TechnicianDTO() {
+    public ClientDTO() {
     }
 
     public void setId(Long id) {

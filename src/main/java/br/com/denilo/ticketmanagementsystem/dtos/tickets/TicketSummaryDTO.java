@@ -1,4 +1,4 @@
-package br.com.denilo.ticketmanagementsystem.dtos;
+package br.com.denilo.ticketmanagementsystem.dtos.tickets;
 
 import br.com.denilo.ticketmanagementsystem.entities.enums.Priority;
 import br.com.denilo.ticketmanagementsystem.entities.enums.Status;
@@ -13,18 +13,18 @@ public class TicketSummaryDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    private String title;
     @JsonFormat(pattern = "'On' dd/MM/yyyy, 'at' HH:mm:ss.")
     private LocalDateTime creationDate;
-    private String title;
     private Priority priority;
     private Status status;
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public void setPriority(Priority priority) {
@@ -35,12 +35,12 @@ public class TicketSummaryDTO implements Serializable {
         this.status = status;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
     public Priority getPriority() {
@@ -50,4 +50,5 @@ public class TicketSummaryDTO implements Serializable {
     public Status getStatus() {
         return status;
     }
+
 }

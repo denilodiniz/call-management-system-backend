@@ -1,7 +1,9 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
-import br.com.denilo.ticketmanagementsystem.dtos.ClientDTO;
-import br.com.denilo.ticketmanagementsystem.dtos.ClientSummaryDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientUpdateDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientDetailsDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientSummaryDTO;
 import br.com.denilo.ticketmanagementsystem.services.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +27,13 @@ public class ClientResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> findById(@PathVariable Long id) {
-        ClientDTO clientDTO = clientService.findById(id);
-        return ResponseEntity.ok().body(clientDTO);
+    public ResponseEntity<ClientDetailsDTO> findById(@PathVariable Long id) {
+        ClientDetailsDTO clientDetailsDTO = clientService.findById(id);
+        return ResponseEntity.ok().body(clientDetailsDTO);
     }
 
     @PostMapping
-    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientUpdateDTO> create(@Valid @RequestBody ClientUpdateDTO clientDTO) {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
@@ -41,7 +43,7 @@ public class ClientResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> update(@PathVariable Long id, @Valid @RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<ClientSummaryDTO> update(@PathVariable Long id, @Valid @RequestBody ClientUpdateDTO clientDTO) {
         return ResponseEntity.ok().body(clientService.update(id, clientDTO));
     }
 
