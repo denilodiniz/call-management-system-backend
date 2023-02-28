@@ -1,7 +1,6 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
 import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientUpdateDTO;
-import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientDTO;
 import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientDetailsDTO;
 import br.com.denilo.ticketmanagementsystem.dtos.clients.ClientSummaryDTO;
 import br.com.denilo.ticketmanagementsystem.services.ClientService;
@@ -48,7 +47,7 @@ public class ClientResource {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<ClientUpdateDTO> delete(@PathVariable Long id) {
         clientService.delete(id);
         return ResponseEntity.noContent().build();
     }

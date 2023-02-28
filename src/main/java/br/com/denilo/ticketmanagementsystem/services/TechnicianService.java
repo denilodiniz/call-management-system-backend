@@ -1,10 +1,13 @@
 package br.com.denilo.ticketmanagementsystem.services;
 
-import br.com.denilo.ticketmanagementsystem.dtos.TechnicianDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianDetailsDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianSummaryDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianUpdateDTO;
 import br.com.denilo.ticketmanagementsystem.entities.Technician;
 import br.com.denilo.ticketmanagementsystem.repositories.TechnicianRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.UserRepository;
+import br.com.denilo.ticketmanagementsystem.services.converter.TechnicianConverter;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErrorException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
@@ -25,31 +28,33 @@ public class TechnicianService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    public TechnicianDTO findById(Long id) {
-        return toTechnicianDTO(technicianRepository.findById(id)
+    public TechnicianDetailsDTO findById(Long id) {
+        return TechnicianConverter.technicianDetailsDTO(technicianRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Technician with ID " + id + " does not exist.")));
     }
 
-    public List<TechnicianDTO> findAll() {
+    public List<TechnicianSummaryDTO> findAll() {
         return technicianRepository.findAll()
                 .stream()
-                .map(x -> toTechnicianDTO(x))
+                .map(TechnicianConverter::technicianSummaryDTO)
                 .toList();
     }
 
-    public TechnicianDTO create(TechnicianDTO technicianDTO) {
-        UserValidation.userValidationForUserExist(technicianDTO.getCpf(), technicianDTO.getEmail());
-        return toTechnicianDTO(technicianRepository.save(convertToUser(technicianDTO)));
+    public TechnicianUpdateDTO create(TechnicianUpdateDTO technicianUpdateDTO) {
+        UserValidation.userValidationForUserExist(technicianUpdateDTO.getCpf(), technicianUpdateDTO.getEmail());
+        return TechnicianConverter.technicianUpdateDTO(
+                technicianRepository.save(TechnicianConverter.convertToTechnician(technicianUpdateDTO))
+        );
     }
 
-    public TechnicianDTO update(Long id, TechnicianDTO technicianDTO) {
+    public TechnicianSummaryDTO update(Long id, TechnicianUpdateDTO technicianDTO) {
         technicianDTO.setId(id);
         UserValidation.userValidationForUserUpdate(technicianDTO.getId(), technicianDTO.getCpf(), technicianDTO.getEmail());
-        Technician technicianData = convertToUserWithId(technicianDTO);
+        Technician technicianData = TechnicianConverter.convertToTechnicianWithId(technicianDTO);
         Technician technicianUpdate = technicianRepository.findById(technicianDTO.getId()).get();
         Technician updatedTechnician = updateData(technicianData, technicianUpdate);
         technicianRepository.save(updatedTechnician);
-        return toTechnicianDTO(updatedTechnician);
+        return TechnicianConverter.technicianSummaryDTO(updatedTechnician);
     }
 
     public void delete(Long id) {
@@ -59,34 +64,6 @@ public class TechnicianService {
             throw new DataIntegrityErrorException("Technician has tickets, it cannot be deleted.");
         }
         technicianRepository.deleteById(id);
-    }
-
-    private TechnicianDTO toTechnicianDTO(Technician technician) {
-        TechnicianDTO technicianDTO = new TechnicianDTO();
-        technicianDTO.setName(technician.getName());
-        technicianDTO.setEmail(technician.getEmail());
-        technicianDTO.setCpf(technician.getCpf());
-        technicianDTO.setCreationDate(technician.getCreationDate());
-        return technicianDTO;
-    }
-
-    private Technician convertToUser(TechnicianDTO technicianDTO) {
-        return new Technician(
-                technicianDTO.getName(),
-                technicianDTO.getCpf(),
-                technicianDTO.getEmail(),
-                technicianDTO.getPassword()
-        );
-    }
-
-    private Technician convertToUserWithId(TechnicianDTO technicianDTO) {
-        return new Technician(
-                technicianDTO.getId(),
-                technicianDTO.getName(),
-                technicianDTO.getCpf(),
-                technicianDTO.getEmail(),
-                technicianDTO.getPassword()
-        );
     }
 
     private Technician updateData(Technician technicianData, Technician technicianUpdate) {

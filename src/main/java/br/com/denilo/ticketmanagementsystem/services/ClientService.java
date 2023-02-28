@@ -40,7 +40,7 @@ public class ClientService {
                 .toList();
     }
 
-    public ClientUpdateDTO create(@Valid ClientUpdateDTO clientUpdateDTO) {
+    public ClientUpdateDTO create(ClientUpdateDTO clientUpdateDTO) {
         UserValidation.userValidationForUserExist(clientUpdateDTO.getCpf(), clientUpdateDTO.getEmail());
         return ClientConverter.clientCreateDTO(
                 clientRepository.save(

@@ -1,6 +1,8 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
-import br.com.denilo.ticketmanagementsystem.dtos.TechnicianDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianDetailsDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianSummaryDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianUpdateDTO;
 import br.com.denilo.ticketmanagementsystem.services.TechnicianService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +21,17 @@ public class TechnicianResource {
     private TechnicianService technicianService;
 
     @GetMapping
-    public ResponseEntity<List<TechnicianDTO>> findAll() {
+    public ResponseEntity<List<TechnicianSummaryDTO>> findAll() {
         return ResponseEntity.ok().body(technicianService.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TechnicianDTO> findById(@PathVariable Long id) {
-        TechnicianDTO technicianDTO = technicianService.findById(id);
-        return ResponseEntity.ok().body(technicianDTO);
+    public ResponseEntity<TechnicianDetailsDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(technicianService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO technicianDTO) {
+    public ResponseEntity<TechnicianUpdateDTO> create(@Valid @RequestBody TechnicianUpdateDTO technicianDTO) {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
@@ -40,12 +41,12 @@ public class TechnicianResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<TechnicianDTO> update(@PathVariable Long id, @Valid @RequestBody TechnicianDTO technicianDTO) {
+    public ResponseEntity<TechnicianSummaryDTO> update(@PathVariable Long id, @Valid @RequestBody TechnicianUpdateDTO technicianDTO) {
         return ResponseEntity.ok().body(technicianService.update(id, technicianDTO));
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<TechnicianDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<TechnicianUpdateDTO> delete(@PathVariable Long id) {
         technicianService.delete(id);
         return ResponseEntity.noContent().build();
     }

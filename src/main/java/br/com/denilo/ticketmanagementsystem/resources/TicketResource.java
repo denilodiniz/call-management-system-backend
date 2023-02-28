@@ -1,6 +1,8 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
-import br.com.denilo.ticketmanagementsystem.dtos.TicketDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketDTO;
+import br.com.denilo.ticketmanagementsystem.entities.Ticket;
+import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
 import br.com.denilo.ticketmanagementsystem.services.TicketService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class TicketResource {
 
     @Autowired
     TicketService ticketService;
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @GetMapping
     public ResponseEntity<List<TicketDTO>> findAll() {

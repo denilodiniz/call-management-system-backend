@@ -1,4 +1,4 @@
-package br.com.denilo.ticketmanagementsystem.dtos.clients;
+package br.com.denilo.ticketmanagementsystem.dtos.technicians;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.io.Serial;
 import java.io.Serializable;
 
-public class ClientUpdateDTO implements Serializable {
+public class TechnicianUpdateDTO implements Serializable {
 
     @Serial
     private final static long serialVersionUID = 1L;

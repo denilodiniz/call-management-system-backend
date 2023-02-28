@@ -1,6 +1,6 @@
 package br.com.denilo.ticketmanagementsystem.services;
 
-import br.com.denilo.ticketmanagementsystem.dtos.TicketDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketDTO;
 import br.com.denilo.ticketmanagementsystem.entities.Ticket;
 import br.com.denilo.ticketmanagementsystem.repositories.ClientRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.TechnicianRepository;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TicketService {
