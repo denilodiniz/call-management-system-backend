@@ -10,7 +10,6 @@ import br.com.denilo.ticketmanagementsystem.services.converter.ClientConverter;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErrorException;
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +65,11 @@ public class ClientService {
             throw new DataIntegrityErrorException("Client has tickets, it cannot be deleted.");
         }
         clientRepository.deleteById(id);
+    }
+
+    Client findByIdClientDomain(Long id) {
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Client with ID " + id + " does not exist."));
     }
 
     private Client updateData(Client clientData, Client clientUpdate) {

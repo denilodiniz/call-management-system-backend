@@ -1,7 +1,9 @@
 package br.com.denilo.ticketmanagementsystem.resources;
 
-import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketDTO;
-import br.com.denilo.ticketmanagementsystem.entities.Ticket;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketCreateDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketDetailsDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketSummaryDTO;
+import br.com.denilo.ticketmanagementsystem.dtos.tickets.TicketUpdateDTO;
 import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
 import br.com.denilo.ticketmanagementsystem.services.TicketService;
 import jakarta.validation.Valid;
@@ -23,17 +25,17 @@ public class TicketResource {
     private TicketRepository ticketRepository;
 
     @GetMapping
-    public ResponseEntity<List<TicketDTO>> findAll() {
+    public ResponseEntity<List<TicketSummaryDTO>> findAll() {
         return ResponseEntity.ok().body(ticketService.findAll());
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TicketDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<TicketDetailsDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(ticketService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<TicketDTO> create(@Valid @RequestBody TicketDTO ticketDTO) {
+    public ResponseEntity<TicketDetailsDTO> create(@Valid @RequestBody TicketCreateDTO ticketDTO) {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
@@ -43,8 +45,8 @@ public class TicketResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<TicketDTO> update(@PathVariable Long id, @Valid @RequestBody TicketDTO ticketDTO) {
-        TicketDTO ticketUpdated = ticketService.update(id, ticketDTO);
+    public ResponseEntity<TicketDetailsDTO> update(@PathVariable Long id, @Valid @RequestBody TicketUpdateDTO ticketDTO) {
+        TicketDetailsDTO ticketUpdated = ticketService.update(id, ticketDTO);
         return ResponseEntity.ok().body(ticketUpdated);
     }
 

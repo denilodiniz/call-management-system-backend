@@ -3,6 +3,7 @@ package br.com.denilo.ticketmanagementsystem.services;
 import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianDetailsDTO;
 import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianSummaryDTO;
 import br.com.denilo.ticketmanagementsystem.dtos.technicians.TechnicianUpdateDTO;
+import br.com.denilo.ticketmanagementsystem.entities.Client;
 import br.com.denilo.ticketmanagementsystem.entities.Technician;
 import br.com.denilo.ticketmanagementsystem.repositories.TechnicianRepository;
 import br.com.denilo.ticketmanagementsystem.repositories.TicketRepository;
@@ -64,6 +65,11 @@ public class TechnicianService {
             throw new DataIntegrityErrorException("Technician has tickets, it cannot be deleted.");
         }
         technicianRepository.deleteById(id);
+    }
+
+    Technician findByIdTechnicianDomain(Long id) {
+        return technicianRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Technician with ID " + id + " does not exist."));
     }
 
     private Technician updateData(Technician technicianData, Technician technicianUpdate) {

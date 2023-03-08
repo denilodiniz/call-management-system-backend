@@ -39,7 +39,7 @@ public class TechnicianConverter {
         List<TicketSummaryDTO> ticketSummaryDTOList =
                 technician.getTicketList()
                         .stream()
-                        .map(TicketConverterDTO::ticketSummaryDTO)
+                        .map(TicketConverter::ticketSummaryDTO)
                         .toList();
         technicianDetailsDTO.setTicketSummaryDTOList(ticketSummaryDTOList);
 

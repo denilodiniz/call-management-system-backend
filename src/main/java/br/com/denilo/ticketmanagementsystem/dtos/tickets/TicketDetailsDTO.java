@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class TicketDTO implements Serializable {
+public class TicketDetailsDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,10 +29,10 @@ public class TicketDTO implements Serializable {
     private String clientName;
     private String technicianName;
 
-    public TicketDTO() {
+    public TicketDetailsDTO() {
     }
 
-    public TicketDTO(long id, LocalDateTime creationDate, LocalDateTime closedDate, String title, String observations, Status status, Priority priority, Long clientId, Long technicianId, String clientName, String technicianName) {
+    public TicketDetailsDTO(long id, LocalDateTime creationDate, LocalDateTime closedDate, String title, String observations, Status status, Priority priority, Long clientId, Long technicianId, String clientName, String technicianName) {
         this.id = id;
         this.creationDate = creationDate;
         this.closedDate = closedDate;

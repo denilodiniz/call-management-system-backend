@@ -39,7 +39,7 @@ public class ClientConverter {
         List<TicketSummaryDTO> ticketSummaryDTOList =
                 client.getTicketList()
                         .stream()
-                        .map(x -> TicketConverterDTO.ticketSummaryDTO(x))
+                        .map(x -> TicketConverter.ticketSummaryDTO(x))
                         .toList();
         clientDetailsDTO.setTicketSummaryDTOList(ticketSummaryDTOList);
 
