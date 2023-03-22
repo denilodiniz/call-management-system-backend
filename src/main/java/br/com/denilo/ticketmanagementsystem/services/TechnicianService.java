@@ -13,6 +13,7 @@ import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErr
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +26,7 @@ public class TechnicianService {
     TechnicianRepository technicianRepository;
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private TicketRepository ticketRepository;
+    private BCryptPasswordEncoder encoder;
 
     public TechnicianDetailsDTO findById(Long id) {
         return TechnicianConverter.technicianDetailsDTO(technicianRepository.findById(id)
@@ -43,6 +42,7 @@ public class TechnicianService {
 
     public TechnicianUpdateDTO create(TechnicianUpdateDTO technicianUpdateDTO) {
         UserValidation.userValidationForUserExist(technicianUpdateDTO.getCpf(), technicianUpdateDTO.getEmail());
+        technicianUpdateDTO.setPassword(encoder.encode(technicianUpdateDTO.getPassword()));
         return TechnicianConverter.technicianUpdateDTO(
                 technicianRepository.save(TechnicianConverter.convertToTechnician(technicianUpdateDTO))
         );
@@ -76,7 +76,7 @@ public class TechnicianService {
         technicianUpdate.setName(technicianData.getName());
         technicianUpdate.setCpf(technicianData.getCpf());
         technicianUpdate.setEmail(technicianData.getEmail());
-        technicianUpdate.setPassword(technicianData.getPassword());
+        technicianUpdate.setPassword(encoder.encode(technicianData.getPassword()));
         return technicianUpdate;
     }
 

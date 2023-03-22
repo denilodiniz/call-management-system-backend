@@ -11,6 +11,7 @@ import br.com.denilo.ticketmanagementsystem.services.exceptions.DataIntegrityErr
 import br.com.denilo.ticketmanagementsystem.services.exceptions.ResourceNotFoundException;
 import br.com.denilo.ticketmanagementsystem.services.util.UserValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class ClientService {
     ClientRepository clientRepository;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private BCryptPasswordEncoder encoder;
 
     public ClientDetailsDTO findById(Long id) {
         return ClientConverter.clientDetailsDTO(clientRepository.findById(id)
@@ -41,6 +42,7 @@ public class ClientService {
 
     public ClientUpdateDTO create(ClientUpdateDTO clientUpdateDTO) {
         UserValidation.userValidationForUserExist(clientUpdateDTO.getCpf(), clientUpdateDTO.getEmail());
+        clientUpdateDTO.setPassword(encoder.encode(clientUpdateDTO.getPassword()));
         return ClientConverter.clientCreateDTO(
                 clientRepository.save(
                         ClientConverter.convertToClient(clientUpdateDTO)
@@ -76,7 +78,7 @@ public class ClientService {
         clientUpdate.setName(clientData.getName());
         clientUpdate.setCpf(clientData.getCpf());
         clientUpdate.setEmail(clientData.getEmail());
-        clientUpdate.setPassword(clientData.getPassword());
+        clientUpdate.setPassword(encoder.encode(clientData.getPassword()));
         return clientUpdate;
     }
 
